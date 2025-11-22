@@ -18,13 +18,6 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onClose, onComplete
     const [earnedScore, setEarnedScore] = useState(0);
     const [stats, setStats] = useState({ accuracy: 0, bonus: 0 });
 
-    useEffect(() => {
-        document.body.classList.add('modal-open');
-        return () => {
-            document.body.classList.remove('modal-open');
-        };
-    }, []);
-
     // Data extraction
     const quizQuestions = lesson.quiz || [];
     const theoryContent = lesson.theoryContent || lesson.content;

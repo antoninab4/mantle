@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { WINGS_LINKS } from '../../constants';
 import { Card3D, Button3D } from '../ui/GameUI';
@@ -45,6 +46,11 @@ const WingsHub: React.FC = () => {
                 <a href="https://t.me/wnt_admin_help" target="_blank" rel="noreferrer">
                     <Button3D variant="cyan">Написать админу</Button3D>
                 </a>
+            </div>
+
+            <div className="mt-12 text-center text-gray-500 text-sm">
+                <p>© 2025-2026 WingsNodeTeam. All rights reserved.</p>
+                <p>Создано на основе анализа экосистемы Mantle (Ноябрь 2025).</p>
             </div>
         </div>
     );

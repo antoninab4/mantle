@@ -54,9 +54,6 @@ body {
 /* Prevent text selection on UI elements for game feel */
 button, .card-3d { user-select: none; }
 
-body.modal-open { overflow: hidden; }
-.modal-open .mobile-header { display: none !important; }
-
 /* --- PRINT STYLES FOR CERTIFICATE --- */
 @media print {
   body {
