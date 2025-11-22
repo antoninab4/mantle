@@ -4,197 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Mantle Academy | WingsNodeTeam</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Nunito', 'sans-serif'],
-            },
-            colors: {
-              pop: {
-                bg: '#020617',       // Darker Slate (Space)
-                card: '#1e293b',     // Slate for cards
-                text: '#ffffff',     // Text
-                border: '#334155',   // Borders
-                
-                // Brand Colors
-                cyan: '#1cb0f6',     // Primary (Mantle)
-                cyanDark: '#118ee8', // Primary Dark
-                
-                purple: '#ce82ff',   // Secondary (Wings)
-                purpleDark: '#a665cc',
-                
-                yellow: '#ffc800',   // Warning/XP
-                yellowDark: '#d6a800',
-                
-                green: '#58cc02',    // Success
-                greenDark: '#46a302',
-                
-                red: '#ff4b4b',      // Error/Hearts
-                redDark: '#d62a2a',
-              }
-            },
-            boxShadow: {
-              '3d': '0 4px 0',
-              '3d-lg': '0 6px 0',
-              '3d-xl': '0 8px 0',
-              'glow': '0 0 20px rgba(28, 176, 246, 0.5)',
-            },
-            animation: {
-              'fade-in': 'fadeIn 0.3s ease-out forwards',
-              'bounce-in': 'bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
-              'slide-up': 'slideUp 0.3s ease-out forwards',
-              'pulse-glow': 'pulseGlow 2s infinite',
-              'float': 'float 6s ease-in-out infinite',
-              'float-delayed': 'float 7s ease-in-out 1s infinite',
-              'spin-slow': 'spin 60s linear infinite',
-              'shockwave': 'shockwave 0.6s ease-out forwards',
-            },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
-              },
-              bounceIn: {
-                '0%': { opacity: '0', transform: 'scale(0.8)' },
-                '100%': { opacity: '1', transform: 'scale(1)' },
-              },
-              slideUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              },
-              pulseGlow: {
-                '0%, 100%': { boxShadow: '0 0 10px rgba(28, 176, 246, 0.2)' },
-                '50%': { boxShadow: '0 0 25px rgba(28, 176, 246, 0.6)' },
-              },
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              },
-              shockwave: {
-                '0%': { transform: 'scale(1)', opacity: '1', borderWidth: '4px' },
-                '100%': { transform: 'scale(2.5)', opacity: '0', borderWidth: '0px' },
-              }
-            }
-          }
-        }
-      }
-    </script>
-    <style>
-      /* --- BASE LAYER: Deep Space Gradient --- */
-      body {
-        background: radial-gradient(circle at 50% 0%, #2e1065 0%, #0f172a 40%, #020617 100%);
-        background-attachment: fixed; /* Fixes gradient during scroll */
-        color: #fff;
-        overflow-x: hidden;
-        min-height: 100vh;
-        margin: 0;
-      }
-
-      /* --- LAYER 2: Cyber Grid (High Visibility) --- */
-      .bg-grid-pattern {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background-size: 60px 60px;
-        background-image: 
-          linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-        pointer-events: none;
-        z-index: 0; /* Put at 0, behind content */
-      }
-
-      /* --- LAYER 3: Stars --- */
-      .star-layer {
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        pointer-events: none;
-        z-index: 0;
-      }
-      
-      .star {
-        position: absolute;
-        background: white;
-        border-radius: 50%;
-        animation: twinkle var(--duration) infinite alternate;
-        box-shadow: 0 0 4px white; /* Glow effect */
-      }
-
-      @keyframes twinkle {
-        0% { opacity: 0.4; transform: scale(0.8); }
-        100% { opacity: 1; transform: scale(1.2); }
-      }
-
-      /* --- UTILS --- */
-      .no-scrollbar::-webkit-scrollbar { display: none; }
-      .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-      .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-      .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-      
-      /* Prevent text selection on UI elements for game feel */
-      button, .card-3d { user-select: none; }
-
-      /* --- PRINT STYLES FOR CERTIFICATE --- */
-      @media print {
-        body {
-          background: white;
-          color: black;
-          overflow: visible;
-        }
-        
-        /* Hide EVERYTHING initially */
-        body > * {
-          display: none !important;
-        }
-
-        /* Only show the root (since React mounts there) but hide its children by default */
-        #root {
-          display: block !important;
-        }
-
-        /* We need to target the specific certificate container deep in the tree */
-        #printable-area {
-          display: block !important;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 9999;
-          background: white;
-          display: flex !important;
-          align-items: center;
-          justify-content: center;
-          margin: 0;
-          padding: 0;
-        }
-
-        aside, .mobile-header, .bg-grid-pattern, .star-layer, .background-decor, header, footer {
-            display: none !important;
-        }
-        
-        #printable-area .certificate-inner {
-             transform: scale(1) !important;
-             box-shadow: none !important;
-             border: 2px solid #ce82ff !important;
-        }
-      }
-    </style>
   <script type="importmap">
 {
   "imports": {
-    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "recharts": "https://aistudiocdn.com/recharts@^3.4.1",
     "vite": "https://aistudiocdn.com/vite@^7.2.4",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
-    "recharts": "https://aistudiocdn.com/recharts@^3.4.1"
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>

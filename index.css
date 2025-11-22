@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- BASE LAYER: Deep Space Gradient --- */
+body {
+  background: radial-gradient(circle at 50% 0%, #2e1065 0%, #0f172a 40%, #020617 100%);
+  background-attachment: fixed; /* Fixes gradient during scroll */
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* --- LAYER 2: Cyber Grid (High Visibility) --- */
+.bg-grid-pattern {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 0; /* Put at 0, behind content */
+}
+
+/* --- LAYER 3: Stars --- */
+.star-layer {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration) infinite alternate;
+  box-shadow: 0 0 4px white; /* Glow effect */
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.4; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+/* --- UTILS --- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.custom-scrollbar::-webkit-scrollbar { width: 8px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+
+/* Prevent text selection on UI elements for game feel */
+button, .card-3d { user-select: none; }
+
+/* --- PRINT STYLES FOR CERTIFICATE --- */
+@media print {
+  body {
+    background: white;
+    color: black;
+    overflow: visible;
+  }
+  
+  /* Hide EVERYTHING initially */
+  body > * {
+    display: none !important;
+  }
+
+  /* Only show the root (since React mounts there) but hide its children by default */
+  #root {
+    display: block !important;
+  }
+
+  /* We need to target the specific certificate container deep in the tree */
+  #printable-area {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: white;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  aside, .mobile-header, .bg-grid-pattern, .star-layer, .background-decor, header, footer {
+      display: none !important;
+  }
+  
+  #printable-area .certificate-inner {
+       transform: scale(1) !important;
+       box-shadow: none !important;
+       border: 2px solid #ce82ff !important;
+  }
+}
