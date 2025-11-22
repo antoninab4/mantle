@@ -67,13 +67,15 @@ const EcosystemHub: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {CAMPAIGNS.map((camp) => (
                         <div key={camp.id} className={`relative overflow-hidden bg-slate-900/60 border-2 rounded-2xl p-4 transition-all hover:border-pop-cyan group ${camp.status === 'Ended' ? 'border-gray-800 opacity-60 grayscale' : 'border-white/10'}`}>
-                            {camp.status === 'Active' && <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 translate-x-[-200%] group-hover:animate-shockwave opacity-0 group-hover:opacity-100" />}
+                            {camp.status === 'Active' && <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 translate-x-[-200%] group-hover:animate-shockwave opacity-0 group-hover:opacity-100 pointer-events-none" />}
                             <div className="flex justify-between items-start mb-2"><Badge color={camp.status === 'Active' ? 'green' : 'gray'}>{camp.status}</Badge><Badge color="yellow" variant="outline">{camp.apy}</Badge></div>
                             <h3 className="text-lg font-black text-white mb-1 group-hover:text-pop-cyan transition-colors">{camp.title}</h3>
                             <p className="text-xs font-bold text-gray-500 uppercase mb-3">{camp.platform}</p>
                             <div className="flex items-center justify-between mt-auto">
                                 <div className="flex gap-2">{camp.tags.map(t => <span key={t} className="text-[10px] bg-white/5 px-2 py-1 rounded text-gray-400">{t}</span>)}</div>
-                                <a href={camp.link} target="_blank" rel="noreferrer"><button className="w-8 h-8 rounded-full bg-pop-cyan flex items-center justify-center text-white hover:scale-110 transition-transform"><ExternalLink size={14} /></button></a>
+                                <a href={camp.link} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-pop-cyan flex items-center justify-center text-white hover:scale-110 transition-transform cursor-pointer z-10 relative">
+                                    <ExternalLink size={14} />
+                                </a>
                             </div>
                         </div>
                     ))}
