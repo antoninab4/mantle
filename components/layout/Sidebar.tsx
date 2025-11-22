@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Map, User, Zap, Users } from 'lucide-react';
@@ -13,7 +12,6 @@ const Sidebar: React.FC = () => {
 
     return (
         <aside className="hidden md:flex flex-col w-72 bg-slate-950/20 backdrop-blur-xl border-r border-white/10 fixed h-full z-20 p-4 overflow-y-auto no-scrollbar shadow-2xl">
-            {/* Logo */}
             <div className="mb-8 px-4 mt-4">
                 <div className="inline-block px-2 py-1 bg-white/5 rounded-lg border border-white/10 mb-2">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-pop-cyan">v2.0 Beta</span>
@@ -25,7 +23,6 @@ const Sidebar: React.FC = () => {
                 <p className="text-xs text-gray-400 font-bold mt-2 opacity-80 pl-1 border-l-2 border-pop-purple">by WingsNodeTeam</p>
             </div>
 
-            {/* Nav */}
             <nav className="space-y-3 flex-1">
                 {NAV_ITEMS.map((item) => (
                     <NavLink 
@@ -44,7 +41,6 @@ const Sidebar: React.FC = () => {
                 ))}
             </nav>
             
-            {/* Mini Footer */}
             <div className="mt-auto pt-6 border-t border-white/10">
                 <div className="p-4 rounded-xl bg-gradient-to-r from-pop-purple/20 to-transparent border border-white/5">
                     <p className="text-xs text-gray-300 font-bold mb-1">Нужна помощь?</p>

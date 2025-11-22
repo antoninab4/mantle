@@ -15,25 +15,19 @@ export default {
       },
       colors: {
         pop: {
-          bg: '#020617',       // Darker Slate (Space)
-          card: '#1e293b',     // Slate for cards
-          text: '#ffffff',     // Text
-          border: '#334155',   // Borders
-          
-          // Brand Colors
-          cyan: '#1cb0f6',     // Primary (Mantle)
-          cyanDark: '#118ee8', // Primary Dark
-          
-          purple: '#ce82ff',   // Secondary (Wings)
+          bg: '#020617',
+          card: '#1e293b',
+          text: '#ffffff',
+          border: '#334155',
+          cyan: '#1cb0f6',
+          cyanDark: '#118ee8',
+          purple: '#ce82ff',
           purpleDark: '#a665cc',
-          
-          yellow: '#ffc800',   // Warning/XP
+          yellow: '#ffc800',
           yellowDark: '#d6a800',
-          
-          green: '#58cc02',    // Success
+          green: '#58cc02',
           greenDark: '#46a302',
-          
-          red: '#ff4b4b',      // Error/Hearts
+          red: '#ff4b4b',
           redDark: '#d62a2a',
         }
       },
@@ -49,8 +43,6 @@ export default {
         'slide-up': 'slideUp 0.3s ease-out forwards',
         'pulse-glow': 'pulseGlow 2s infinite',
         'float': 'float 6s ease-in-out infinite',
-        'float-delayed': 'float 7s ease-in-out 1s infinite',
-        'spin-slow': 'spin 60s linear infinite',
         'shockwave': 'shockwave 0.6s ease-out forwards',
       },
       keyframes: {

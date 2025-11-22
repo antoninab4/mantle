@@ -60,7 +60,6 @@ export const Card3D: React.FC<Card3DProps> = ({ children, className = "", title,
         gray: "border-white/10"
     };
     
-    // High transparency for glass effect
     return (
         <div className={`bg-slate-900/40 backdrop-blur-xl border-2 ${borderColors[color]} border-b-4 rounded-3xl p-6 shadow-xl ${className}`}>
             {(title || icon) && (
@@ -85,7 +84,6 @@ export const ProgressBar: React.FC<{ percentage: number, color?: string, height?
                     className={`${height} ${color} transition-all duration-500 ease-out rounded-full relative shadow-[0_0_10px_rgba(255,255,255,0.3)]`}
                     style={{ width: `${Math.max(5, Math.min(100, percentage))}%` }}
                 >
-                    {/* Shine effect */}
                     <div className="absolute top-0.5 left-0.5 right-0.5 h-1/3 bg-white/30 rounded-full" />
                 </div>
             </div>

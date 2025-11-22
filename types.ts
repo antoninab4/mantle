@@ -1,14 +1,12 @@
 import React from 'react';
 import { LucideIcon } from "lucide-react";
 
-// --- Navigation ---
 export interface NavItem {
   label: string;
   path: string;
   icon: LucideIcon;
 }
 
-// --- User & Gamification ---
 export interface UserState {
   name: string;
   xp: number;
@@ -19,27 +17,19 @@ export interface UserState {
 }
 
 export interface UserProfile {
-    xp: number;
-    level: number;
-    streak: number;
-    completedLessons: string[];
-    hearts: number;
+  xp: number;
+  level: number;
+  streak: number;
+  completedLessons: string[];
+  hearts: number;
 }
 
-export interface Rank {
-  name: string;
-  minXp: number;
-  color: string;
-  icon: string;
-}
-
-// --- Content: Course ---
 export interface QuizQuestion {
   id: number;
   question: string;
   options: string[];
   correctAnswer: number;
-  explanation: string; // Shown after answering
+  explanation: string;
 }
 
 export interface Lesson {
@@ -49,18 +39,13 @@ export interface Lesson {
   xpReward: number;
   duration: string;
   difficulty: 'Novice' | 'Intermediate' | 'Expert';
-  
-  // Content
-  theoryContent?: React.ReactNode;
-  practicalContent?: React.ReactNode; // Optional step-by-step guide
-  
-  // Mixed support for different component versions
   content?: React.ReactNode;
   practicalSteps?: React.ReactNode;
   isPractical?: boolean;
-
-  // Assessment
   quiz?: QuizQuestion[];
+  // Legacy support fields
+  theoryContent?: React.ReactNode;
+  practicalContent?: React.ReactNode;
 }
 
 export interface CourseModule {
@@ -69,10 +54,9 @@ export interface CourseModule {
   description: string;
   icon: React.ReactNode;
   lessons: Lesson[];
-  unlockXp: number; // XP required to unlock this module
+  unlockXp: number;
 }
 
-// --- Content: Ecosystem ---
 export interface EcosystemCampaign {
   id: string;
   title: string;

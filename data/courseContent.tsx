@@ -1,6 +1,6 @@
 import React from 'react';
 import { CourseModule } from '../types';
-import { Layers, Coins, Globe, Cpu } from 'lucide-react';
+import { Layers, Coins, Globe } from 'lucide-react';
 import { MODULE_1_LESSONS } from './modules/module1';
 import { MODULE_2_LESSONS } from './modules/module2';
 import { MODULE_3_LESSONS } from './modules/module3';

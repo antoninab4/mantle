@@ -1,16 +1,15 @@
-
 import { EcosystemCampaign } from '../types';
 
 export const CAMPAIGNS: EcosystemCampaign[] = [
     {
         id: "bybit-canton",
         title: "Bybit Launchpool: Canton",
-        description: "Стейкинг MNT, CC или BBSOL на бирже Bybit для получения токенов Canton Network (CC). Только 10-16 Ноября!",
+        description: "Стейкинг MNT, CC или BBSOL на бирже Bybit для получения токенов Canton Network (CC).",
         platform: "Bybit CEX",
         apy: "Launchpool 🔥",
         status: "Active",
         tags: ["Limited Time", "CEX"],
-        link: "https://announcements.bybit.com/article/bybit-launchpool-stake-cc-mnt-or-bbs"
+        link: "https://announcements.bybit.com/"
     },
     {
         id: "cook-feast",
@@ -35,31 +34,11 @@ export const CAMPAIGNS: EcosystemCampaign[] = [
     {
         id: "methamorphosis",
         title: "Methamorphosis S3",
-        description: "Длинная кампания для пользователей mETH. Используйте mETH в DeFi (Merchant Moe, INIT), чтобы фармить Powder.",
+        description: "Используйте mETH в DeFi (Merchant Moe, INIT), чтобы фармить Powder.",
         platform: "Mantle Ecosystem",
         apy: "Multi-Yield",
         status: "Active",
         tags: ["DeFi", "Season 3"],
-        link: "https://www.mantle.xyz/blog/guide/season-2-methamorphosis"
-    },
-    {
-        id: "apex-rwa",
-        title: "ApeX RWA Trading",
-        description: "Торгуйте RWA фьючерсами на ApeX Pro. Награды в токенах APEX и eSANT.",
-        platform: "ApeX Protocol",
-        apy: "Trade-to-Earn",
-        status: "Active",
-        tags: ["Trading", "RWA"],
-        link: "https://www.apex.exchange/blog"
-    },
-    {
-        id: "eigen-pool",
-        title: "EIGEN Rewards",
-        description: "Пул завершен 11 Марта 2025. Снэпшот сделан, награды распределены.",
-        platform: "Mantle Rewards",
-        apy: "Ended",
-        status: "Ended",
-        tags: ["History"],
-        link: "https://rewards.mantle.xyz"
+        link: "https://www.mantle.xyz/blog"
     }
 ];

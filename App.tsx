@@ -1,10 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { UserState } from './types';
 import { getUserState, saveUserState } from './utils/storage';
-
-// Components
 import MainLayout from './components/layout/MainLayout';
 import WelcomeScreen from './components/onboarding/WelcomeScreen';
 import CourseMap from './components/learning/CourseMap';
@@ -17,7 +14,6 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-      // Simulate initial load check
       const stored = getUserState();
       setUser(stored);
       setIsLoading(false);
@@ -28,7 +24,7 @@ const App: React.FC = () => {
           ...user,
           name: name,
           isRegistered: true,
-          xp: 0, // Start fresh
+          xp: 0,
           level: 1
       };
       setUser(newUser);
@@ -37,7 +33,6 @@ const App: React.FC = () => {
 
   const handleUserUpdate = (updatedUser: UserState) => {
       setUser(updatedUser);
-      // Save is handled in components, but good to have sync here if needed
   };
 
   if (isLoading) return <div className="min-h-screen bg-pop-bg" />;
