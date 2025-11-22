@@ -47,7 +47,7 @@ const Sidebar: React.FC = () => {
             <div className="mt-auto pt-6 border-t border-white/10">
                 <div className="p-4 rounded-xl bg-gradient-to-r from-pop-purple/20 to-transparent border border-white/5">
                     <p className="text-xs text-gray-300 font-bold mb-1">Нужна помощь?</p>
-                    <a href="https://t.me/wnt_admin_help" target="_blank" className="text-xs text-pop-cyan hover:underline">Написать админу -></a>
+                    <a href="https://t.me/wnt_admin_help" target="_blank" className="text-xs text-pop-cyan hover:underline">Написать админу &rarr;</a>
                 </div>
             </div>
         </aside>
