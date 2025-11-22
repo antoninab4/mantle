@@ -1,6 +1,5 @@
 import React from 'react';
 import { Lesson } from '../../types';
-import { TrendingUp, Bitcoin, Percent, Repeat } from 'lucide-react';
 import { Highlight, Callout } from '../../components/learning/RichText';
 
 export const MODULE_2_LESSONS: Lesson[] = [
@@ -71,6 +70,13 @@ export const MODULE_2_LESSONS: Lesson[] = [
                 options: ["От майнинга биткоина", "От валидации сети Ethereum (Proof-of-Stake)", "Из казначейства Mantle", "От комиссий пользователей"],
                 correctAnswer: 1,
                 explanation: "Базовая доходность идет от стейкинга ETH в основной сети Ethereum (валидаторы)."
+            },
+            {
+                id: 4,
+                question: "Что значит 'Composable' в названии cmETH?",
+                options: ["Сложный", "Компонуемый (можно использовать в других протоколах)", "Компьютерный", "Компактный"],
+                correctAnswer: 1,
+                explanation: "Composable означает, что токен можно использовать как 'лего' в других DeFi приложениях (залоги, пулы) без потери доходности."
             }
         ]
     },
@@ -128,6 +134,13 @@ export const MODULE_2_LESSONS: Lesson[] = [
                 options: ["Omni-chain протоколы (LayerZero)", "Почта России", "SWIFT", "Ручной перенос"],
                 correctAnswer: 0,
                 explanation: "Технологии вроде LayerZero позволяют токену существовать в разных сетях."
+            },
+            {
+                id: 4,
+                question: "В чем смысл 'обертывания' Биткоина в FBTC?",
+                options: ["Чтобы скрыть его от налогов", "Чтобы использовать его в смарт-контрактах и DeFi", "Чтобы он стал быстрее", "Нет смысла"],
+                correctAnswer: 1,
+                explanation: "Сеть Bitcoin не поддерживает смарт-контракты. FBTC позволяет использовать ликвидность BTC в приложениях Ethereum/Mantle."
             }
         ]
     },
@@ -188,6 +201,13 @@ export const MODULE_2_LESSONS: Lesson[] = [
                 options: ["Только спасибо", "Powder (конвертируемый в COOK)", "Биткоины", "NFT картинки"],
                 correctAnswer: 1,
                 explanation: "Кампания Methamorphosis стимулирует ликвидность раздачей поинтов Powder."
+            },
+            {
+                id: 4,
+                question: "Что делает Volatility Accumulator?",
+                options: ["Накапливает долги", "Увеличивает комиссии во время сильных скачков цен", "Останавливает торги", "Сжигает токены"],
+                correctAnswer: 1,
+                explanation: "Это механизм защиты LP: если рынок штормит, комиссии растут, компенсируя риски провайдеров ликвидности."
             }
         ]
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Info, AlertTriangle, CheckCircle, Terminal } from 'lucide-react';
+import { Info, AlertTriangle, CheckCircle } from 'lucide-react';
 
 export const Highlight = ({ children }: { children?: React.ReactNode }) => (
   <span className="text-wings-cyan font-semibold bg-wings-cyan/10 px-1 rounded">{children}</span>

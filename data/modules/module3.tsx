@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lesson } from '../../types';
-import { Building, Vote, Landmark, Scale } from 'lucide-react';
+import { Scale } from 'lucide-react';
 import { Highlight, Callout } from '../../components/learning/RichText';
 
 export const MODULE_3_LESSONS: Lesson[] = [
@@ -64,6 +64,13 @@ export const MODULE_3_LESSONS: Lesson[] = [
                 options: ["Нет, биржа закрыта", "Да, блокчейн работает 24/7", "Только по праздникам", "Только для VIP"],
                 correctAnswer: 1,
                 explanation: "В отличие от традиционных бирж, RWA токены доступны для обмена круглосуточно."
+            },
+            {
+                id: 4,
+                question: "Что такое SPV в контексте RWA?",
+                options: ["Special Purpose Vehicle (Специальное юрлицо)", "Super Power Value", "Secure Private Vault", "Simple Payment Verification"],
+                correctAnswer: 0,
+                explanation: "SPV создается для изоляции рисков и владения активами, обеспечивающими токены."
             }
         ]
     },
@@ -118,6 +125,13 @@ export const MODULE_3_LESSONS: Lesson[] = [
                 options: ["Нет, только в метавселенной", "Да, через сеть Mastercard", "Только если продавец принимает крипту", "Только в Дубае"],
                 correctAnswer: 1,
                 explanation: "Карта работает через платежную систему Mastercard, автоматически конвертируя крипту в фиат при оплате."
+            },
+            {
+                id: 4,
+                question: "Нужен ли банковский счет для использования UR?",
+                options: ["Да, в Сбербанке", "Нет, приложение само генерирует IBAN", "Нужно разрешение ЦБ", "Только счет на Кайманах"],
+                correctAnswer: 1,
+                explanation: "Приложение предоставляет пользователю полноценный IBAN счет в европейской юрисдикции."
             }
         ]
     },
@@ -180,6 +194,13 @@ export const MODULE_3_LESSONS: Lesson[] = [
                 options: ["Только для газа", "Для голосования и стейкинга", "Для майнинга биткоина", "Ни для чего"],
                 correctAnswer: 1,
                 explanation: "MNT дает право голоса в DAO и используется для обеспечения безопасности сети (стейкинг)."
+            },
+            {
+                id: 4,
+                question: "Что такое MIP в экосистеме Mantle?",
+                options: ["Mantle Improvement Proposal", "Money In Pocket", "Mining Pool", "Mobile Interface Protocol"],
+                correctAnswer: 0,
+                explanation: "MIP (Предложение по улучшению Mantle) — это документ, за который голосует сообщество для внесения изменений."
             }
         ]
     }

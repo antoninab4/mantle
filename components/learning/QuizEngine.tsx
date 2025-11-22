@@ -39,7 +39,7 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
         }
     };
 
-    // If failed, show the failure screen (Full Height Centered)
+    // If failed, show failure state within the card
     if (hearts === 0) {
         return (
             <div className="h-full flex flex-col items-center justify-center text-center p-6 animate-bounce-in">
@@ -53,12 +53,12 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
         );
     }
 
-    // Normal Quiz Flow - Using Grid for layout consistency
+    // Flex Column Layout to fit inside LessonPlayer's Card
     return (
-        <div className="h-full grid grid-rows-[auto_1fr_auto] animate-fade-in">
+        <div className="h-full flex flex-col animate-fade-in">
             
-            {/* ROW 1: Progress Header */}
-            <div className="bg-slate-950/50 border-b border-white/5 px-6 py-4 z-10">
+            {/* Header: Progress */}
+            <div className="bg-slate-900/50 border-b border-white/5 px-6 py-4 shrink-0">
                 <div className="flex justify-between items-end mb-2">
                     <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Вопрос {currentIndex + 1} / {questions.length}</span>
                     <div className="flex items-center gap-1 text-pop-red font-black text-lg filter drop-shadow-glow">
@@ -68,16 +68,14 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
                 <ProgressBar percentage={((currentIndex + (isAnswered ? 1 : 0)) / questions.length) * 100} color="bg-pop-green" height="h-3" />
             </div>
 
-            {/* ROW 2: Scrollable Question Area */}
-            <div className="overflow-y-auto custom-scrollbar p-6 pb-8">
+            {/* Content: Scrollable Question */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
                 <div className="max-w-2xl mx-auto">
-                    {/* Question */}
-                    <h3 className="text-xl md:text-2xl font-black text-white mb-8 leading-snug drop-shadow-md">
+                    <h3 className="text-xl font-black text-white mb-8 leading-snug drop-shadow-md">
                         {currentQ.question}
                     </h3>
 
-                    {/* Options */}
-                    <div className="space-y-4 mb-8">
+                    <div className="space-y-3">
                         {currentQ.options.map((option, idx) => {
                             let styleClass = "bg-pop-card border-2 border-pop-border text-gray-300 hover:border-gray-500";
                             let icon = null;
@@ -103,7 +101,7 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
                                     key={idx} 
                                     disabled={isAnswered} 
                                     onClick={() => setSelectedOption(idx)} 
-                                    className={`w-full p-5 rounded-2xl font-bold text-left transition-all duration-200 flex items-center justify-between relative overflow-hidden ${styleClass}`}
+                                    className={`w-full p-4 rounded-xl font-bold text-left transition-all duration-200 flex items-center justify-between relative overflow-hidden ${styleClass}`}
                                 >
                                     <span className="z-10 relative">{option}</span>
                                     {icon && <div className="animate-bounce-in">{icon}</div>}
@@ -114,18 +112,18 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
                 </div>
             </div>
 
-            {/* ROW 3: Footer Action Dock */}
-            <div className="bg-slate-950 p-4 pb-safe border-t border-white/10 z-20">
+            {/* Footer: Actions (Static at bottom of card) */}
+            <div className="bg-slate-900/90 border-t border-white/10 p-4 shrink-0 backdrop-blur-md">
                 <div className="max-w-md mx-auto w-full space-y-4">
                     {isAnswered && (
-                        <div className={`p-4 rounded-2xl border animate-slide-up backdrop-blur-md shadow-lg ${isCorrect ? 'bg-green-900/20 border-green-500/30' : 'bg-red-900/20 border-red-500/30'}`}>
+                        <div className={`p-3 rounded-xl border animate-slide-up backdrop-blur-md shadow-lg ${isCorrect ? 'bg-green-900/20 border-green-500/30' : 'bg-red-900/20 border-red-500/30'}`}>
                             <div className="flex items-start gap-3">
                                 {isCorrect ? <CheckCircle className="text-pop-green shrink-0 mt-1" size={20}/> : <HelpCircle className="text-pop-red shrink-0 mt-1" size={20}/>}
                                 <div>
                                     <div className={`font-black text-sm uppercase mb-1 ${isCorrect ? 'text-pop-green' : 'text-pop-red'}`}>
                                         {isCorrect ? "Верно!" : "Ошибка"}
                                     </div>
-                                    <div className="text-sm text-gray-200 leading-relaxed opacity-90">{currentQ.explanation}</div>
+                                    <div className="text-xs text-gray-300 leading-relaxed opacity-90">{currentQ.explanation}</div>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +135,7 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
                         variant={!isAnswered ? "cyan" : (isCorrect ? "green" : "gray")} 
                         disabled={selectedOption === null && !isAnswered} 
                         onClick={!isAnswered ? handleCheck : handleNext}
-                        className="shadow-2xl"
+                        className="shadow-xl"
                     >
                         {!isAnswered ? "ПРОВЕРИТЬ ОТВЕТ" : (currentIndex < questions.length - 1 ? "СЛЕДУЮЩИЙ ВОПРОС" : "ЗАВЕРШИТЬ ТЕСТ")}
                     </Button3D>

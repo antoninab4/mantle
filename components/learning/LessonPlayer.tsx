@@ -21,48 +21,44 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onClose, onComplete
     const theoryContent = lesson.theoryContent || lesson.content;
 
     return (
-        /* IRONCLAD GRID LAYOUT: 
-           1. Fixed inset-0 z-[200] -> Full screen overlay
-           2. h-[100dvh] -> Respects mobile browser address bars
-           3. grid-rows-[auto_1fr_auto] -> Header / Scrollable Content / Footer
-        */
-        <div className="fixed inset-0 z-[200] bg-slate-950 h-[100dvh] w-screen grid grid-rows-[auto_1fr_auto] font-sans">
+        // FLOATING MODAL CARD ARCHITECTURE
+        // This avoids issues with mobile browser address bars by making the window smaller than the screen (85dvh).
+        // The buttons are inside the card, so they are never covered by the OS UI.
+        <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
             
-            {/* ROW 1: Header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-slate-900/95 backdrop-blur border-b border-white/10 z-20">
-                <button onClick={onClose} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
-                    <X size={20} />
-                </button>
-                <div className="font-bold text-white truncate px-4 text-sm md:text-base">{lesson.title}</div>
-                <div className="w-10" />
-            </div>
+            {/* The Card Container */}
+            <div className="w-full max-w-2xl max-h-[85dvh] bg-slate-950 rounded-3xl shadow-2xl flex flex-col overflow-hidden relative border border-white/10 animate-bounce-in">
+                
+                {/* Header */}
+                <div className="flex items-center justify-between px-4 py-3 bg-slate-900/50 border-b border-white/10 shrink-0">
+                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition-colors">
+                        <X size={20} />
+                    </button>
+                    <div className="font-bold text-white truncate px-4 text-sm md:text-base opacity-80">{lesson.title}</div>
+                    <div className="w-10" />
+                </div>
 
-            {/* ROW 2: Main Content (Takes all remaining space) */}
-            <div className="relative overflow-hidden bg-slate-950">
-                
-                {/* Logic: If Quiz, QuizEngine takes full control of this cell. 
-                   If Theory/Intro/Success, we use a scrollable div. */}
-                
-                {stage === 'quiz' ? (
-                    <QuizEngine 
-                        questions={quizQuestions}
-                        onComplete={(correct, hearts) => {
-                            const total = quizQuestions.length;
-                            const acc = total > 0 ? correct / total : 0;
-                            const base = Math.round(lesson.xpReward * acc);
-                            const bonus = hearts * 10;
-                            setStats({ accuracy: acc * 100, bonus });
-                            setEarnedScore(base + bonus);
-                            setStage('success');
-                        }}
-                        onFail={() => setStage('theory')}
-                    />
-                ) : (
-                    <div className="h-full overflow-y-auto custom-scrollbar p-6 pb-12">
-                        <div className="max-w-2xl mx-auto">
-                            
+                {/* Main Content Area (Scrollable) */}
+                <div className="flex-1 overflow-y-auto custom-scrollbar bg-slate-950 relative">
+                    
+                    {stage === 'quiz' ? (
+                        <QuizEngine 
+                            questions={quizQuestions}
+                            onComplete={(correct, hearts) => {
+                                const total = quizQuestions.length;
+                                const acc = total > 0 ? correct / total : 0;
+                                const base = Math.round(lesson.xpReward * acc);
+                                const bonus = hearts * 10;
+                                setStats({ accuracy: acc * 100, bonus });
+                                setEarnedScore(base + bonus);
+                                setStage('success');
+                            }}
+                            onFail={() => setStage('theory')}
+                        />
+                    ) : (
+                        <div className="p-6 pb-8">
                             {stage === 'intro' && (
-                                <div className="text-center py-8 animate-fade-in">
+                                <div className="text-center py-8">
                                     <div className="w-24 h-24 mx-auto bg-pop-cyan/10 rounded-full flex items-center justify-center mb-6 border-4 border-pop-cyan shadow-[0_0_30px_rgba(28,176,246,0.3)]">
                                         <BookOpen size={40} className="text-pop-cyan" />
                                     </div>
@@ -117,32 +113,32 @@ const LessonPlayer: React.FC<LessonPlayerProps> = ({ lesson, onClose, onComplete
                                 </div>
                             )}
                         </div>
+                    )}
+                </div>
+
+                {/* Footer (Actions) - Static inside card */}
+                {stage !== 'quiz' && (
+                    <div className="bg-slate-900/90 border-t border-white/10 p-4 shrink-0 backdrop-blur-md">
+                        <div className="max-w-md mx-auto w-full">
+                            {stage === 'intro' && (
+                                <Button3D fullWidth size="lg" variant="green" onClick={() => setStage('theory')} className="shadow-xl">
+                                    НАЧАТЬ МИССИЮ
+                                </Button3D>
+                            )}
+                            {stage === 'theory' && (
+                                <Button3D fullWidth size="lg" variant="cyan" onClick={() => setStage('quiz')} className="shadow-xl flex items-center justify-center gap-3">
+                                    К ТЕСТУ <ArrowRight size={24} strokeWidth={3} />
+                                </Button3D>
+                            )}
+                            {stage === 'success' && (
+                                <Button3D fullWidth size="lg" variant="yellow" onClick={() => onComplete(earnedScore)} className="shadow-xl">
+                                    ЗАБРАТЬ НАГРАДУ
+                                </Button3D>
+                            )}
+                        </div>
                     </div>
                 )}
             </div>
-
-            {/* ROW 3: Footer (Actions) - Only visible if NOT in quiz mode */}
-            {stage !== 'quiz' && (
-                <div className="bg-slate-950 border-t border-white/10 p-4 pb-safe z-20 w-full">
-                    <div className="max-w-md mx-auto w-full">
-                        {stage === 'intro' && (
-                            <Button3D fullWidth size="lg" variant="green" onClick={() => setStage('theory')} className="shadow-2xl shadow-green-900/50">
-                                НАЧАТЬ МИССИЮ
-                            </Button3D>
-                        )}
-                        {stage === 'theory' && (
-                            <Button3D fullWidth size="lg" variant="cyan" onClick={() => setStage('quiz')} className="shadow-2xl shadow-cyan-900/50 flex items-center justify-center gap-3">
-                                К ТЕСТУ <ArrowRight size={24} strokeWidth={3} />
-                            </Button3D>
-                        )}
-                        {stage === 'success' && (
-                            <Button3D fullWidth size="lg" variant="yellow" onClick={() => onComplete(earnedScore)} className="shadow-2xl shadow-yellow-900/50">
-                                ЗАБРАТЬ НАГРАДУ
-                            </Button3D>
-                        )}
-                    </div>
-                </div>
-            )}
         </div>
     );
 };

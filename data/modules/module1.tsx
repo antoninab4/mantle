@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lesson } from '../../types';
-import { Layers, Database, Cpu, ShieldCheck, Zap } from 'lucide-react';
+import { Cpu, Database, ShieldCheck } from 'lucide-react';
 import { Highlight, Callout } from '../../components/learning/RichText';
 
 export const MODULE_1_LESSONS: Lesson[] = [
@@ -84,6 +84,13 @@ export const MODULE_1_LESSONS: Lesson[] = [
                 options: ["Mantle Fast", "OP Succinct (ZK)", "Superchain", "Turbo ETH"],
                 correctAnswer: 1,
                 explanation: "Переход на OP Succinct позволил внедрить ZK-пруфы для быстрой валидации состояний."
+            },
+            {
+                id: 4,
+                question: "Где Mantle хранит данные транзакций для экономии газа?",
+                options: ["На жестком диске у майнера", "В EigenDA (Data Availability Layer)", "В сети Bitcoin", "В облаке Google"],
+                correctAnswer: 1,
+                explanation: "EigenDA позволяет хранить данные вне Ethereum, что радикально снижает комиссии."
             }
         ]
     },
@@ -156,6 +163,13 @@ export const MODULE_1_LESSONS: Lesson[] = [
                 options: ["В блокчейне Bitcoin", "На сервере Виталика", "В сети валидаторов EigenDA", "Внутри смарт-контракта Ethereum"],
                 correctAnswer: 2,
                 explanation: "Данные хранятся децентрализованной сетью узлов EigenDA, а Ethereum получает только подтверждение."
+            },
+            {
+                id: 4,
+                question: "Кто обеспечивает безопасность EigenDA?",
+                options: ["Майнеры Биткоина", "Валидаторы Ethereum (через рестейкинг)", "Команда Mantle", "Банки"],
+                correctAnswer: 1,
+                explanation: "EigenDA защищена стейком ETH валидаторов через протокол EigenLayer."
             }
         ]
     },
@@ -210,9 +224,9 @@ export const MODULE_1_LESSONS: Lesson[] = [
             {
                 id: 1,
                 question: "Каков приблизительный размер казначейства Mantle (без учета MNT)?",
-                options: ["$50 млн", "$300 млн", "$800 млн+", "$10 млрд"],
-                correctAnswer: 2,
-                explanation: "Суммарная стоимость активов (ETH, BTC, Stablecoins) приближается к $1 млрд, а с учетом MNT превышает $3 млрд."
+                options: ["$50 млн", "$300 млн", "$800 млн+", "$3.15 млрд"],
+                correctAnswer: 3,
+                explanation: "Суммарная стоимость активов (ETH, BTC, Stablecoins) превышает $3 млрд, что делает его одним из крупнейших в DAO."
             },
             {
                 id: 2,
@@ -227,6 +241,13 @@ export const MODULE_1_LESSONS: Lesson[] = [
                 options: ["Чтобы купить остров", "Для финансирования экосистемы и независимости от VC", "Чтобы пампить цену токена", "Это ошибка"],
                 correctAnswer: 1,
                 explanation: "Большое казначейство ('War Chest') позволяет поддерживать гранты, ликвидность и разработку в долгосрочной перспективе."
+            },
+            {
+                id: 4,
+                question: "В чем преимущество наличия собственных запасов ETH и BTC у проекта?",
+                options: ["Можно не работать", "Это диверсификация и защита от падения цены собственного токена", "Для красоты", "Чтобы платить налоги"],
+                correctAnswer: 1,
+                explanation: "Диверсификация активов защищает проект от волатильности рынка и снижает зависимость от цены MNT."
             }
         ]
     }
