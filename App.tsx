@@ -37,6 +37,8 @@ const App: React.FC = () => {
 
   if (isLoading) return <div className="min-h-screen bg-pop-bg" />;
 
+  // If user is not registered, show the Welcome Screen (Landing)
+  // This bypasses the MainLayout (Sidebar) for a full-screen experience
   if (!user.isRegistered) {
       return <WelcomeScreen onComplete={handleRegistration} />;
   }
