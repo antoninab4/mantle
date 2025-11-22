@@ -39,58 +39,101 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
         }
     };
 
+    // If failed, show the failure screen
     if (hearts === 0) {
         return (
-            <div className="text-center py-8 animate-bounce-in">
+            <div className="text-center py-12 animate-bounce-in">
                 <div className="text-8xl mb-6 animate-pulse">💔</div>
                 <h2 className="text-3xl font-black text-pop-red mb-4">Поражение!</h2>
-                <Button3D variant="red" fullWidth onClick={onFail}><RotateCcw size={20} /> Начать заново</Button3D>
+                <p className="text-gray-400 mb-8">К сожалению, жизни закончились. Попробуйте изучить теорию еще раз.</p>
+                <Button3D variant="red" fullWidth onClick={onFail} size="lg" className="shadow-xl shadow-red-900/40">
+                    <RotateCcw size={20} /> Начать заново
+                </Button3D>
             </div>
         );
     }
 
+    // Normal Quiz Flow
     return (
-        <div className="pb-24">
-            <div className="mb-8">
+        <div className="animate-fade-in">
+            {/* Progress Header */}
+            <div className="mb-8 sticky top-0 bg-slate-950/90 backdrop-blur py-4 z-10 border-b border-white/5 -mx-2 px-2">
                 <div className="flex justify-between items-end mb-2">
-                    <span className="text-xs font-bold text-gray-500 uppercase">Вопрос {currentIndex + 1} из {questions.length}</span>
-                    <div className="flex items-center gap-1 text-pop-red font-black"><Heart size={16} fill="currentColor" /> {hearts}</div>
+                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Вопрос {currentIndex + 1} / {questions.length}</span>
+                    <div className="flex items-center gap-1 text-pop-red font-black text-lg filter drop-shadow-glow">
+                        <Heart size={20} fill="currentColor" className="animate-pulse" /> {hearts}
+                    </div>
                 </div>
-                <ProgressBar percentage={((currentIndex) / questions.length) * 100} color="bg-pop-green" height="h-2" />
+                <ProgressBar percentage={((currentIndex + (isAnswered ? 1 : 0)) / questions.length) * 100} color="bg-pop-green" height="h-3" />
             </div>
 
-            <h3 className="text-xl md:text-2xl font-black text-white mb-6 leading-snug">{currentQ.question}</h3>
+            {/* Question */}
+            <h3 className="text-xl md:text-2xl font-black text-white mb-8 leading-snug drop-shadow-md">
+                {currentQ.question}
+            </h3>
 
-            <div className="space-y-3 mb-8">
+            {/* Options */}
+            <div className="space-y-4 mb-8">
                 {currentQ.options.map((option, idx) => {
-                    let styleClass = "bg-pop-bg border-2 border-pop-border text-gray-300 hover:bg-pop-card";
-                    if (selectedOption === idx && !isAnswered) styleClass = "bg-pop-cyan/10 border-pop-cyan text-pop-cyan";
-                    if (isAnswered) {
-                        if (idx === currentQ.correctAnswer) styleClass = "bg-pop-green border-pop-greenDark text-white";
-                        else if (selectedOption === idx && !isCorrect) styleClass = "bg-pop-red border-pop-redDark text-white opacity-50";
-                        else styleClass = "opacity-30 border-transparent grayscale";
+                    let styleClass = "bg-pop-card border-2 border-pop-border text-gray-300 hover:border-gray-500";
+                    let icon = null;
+
+                    if (selectedOption === idx && !isAnswered) {
+                        styleClass = "bg-pop-cyan/20 border-pop-cyan text-white shadow-[0_0_15px_rgba(28,176,246,0.3)] transform scale-[1.02]";
                     }
+
+                    if (isAnswered) {
+                        if (idx === currentQ.correctAnswer) {
+                            styleClass = "bg-green-500/20 border-pop-green text-white shadow-[0_0_15px_rgba(88,204,2,0.3)]";
+                            icon = <CheckCircle size={24} className="text-pop-green" />;
+                        } else if (selectedOption === idx && !isCorrect) {
+                            styleClass = "bg-red-500/20 border-pop-red text-white";
+                            icon = <XCircle size={24} className="text-pop-red" />;
+                        } else {
+                            styleClass = "opacity-40 border-transparent";
+                        }
+                    }
+
                     return (
-                        <button key={idx} disabled={isAnswered} onClick={() => setSelectedOption(idx)} className={`w-full p-4 rounded-xl font-bold text-left transition-all flex items-center justify-between ${styleClass}`}>
-                            <span>{option}</span>
-                            {isAnswered && idx === currentQ.correctAnswer && <CheckCircle size={20} />}
-                            {isAnswered && selectedOption === idx && !isCorrect && <XCircle size={20} />}
+                        <button 
+                            key={idx} 
+                            disabled={isAnswered} 
+                            onClick={() => setSelectedOption(idx)} 
+                            className={`w-full p-5 rounded-2xl font-bold text-left transition-all duration-200 flex items-center justify-between relative overflow-hidden ${styleClass}`}
+                        >
+                            <span className="z-10 relative">{option}</span>
+                            {icon && <div className="animate-bounce-in">{icon}</div>}
                         </button>
                     );
                 })}
             </div>
 
-            {/* Fixed Action Dock */}
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-slate-900/90 border-t border-white/10 backdrop-blur-lg z-50">
-                <div className="max-w-md mx-auto">
+            {/* Floating Action Dock for Quiz */}
+            <div className="fixed bottom-0 left-0 right-0 z-50 p-4 pb-safe bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent pt-12">
+                <div className="max-w-md mx-auto w-full space-y-4">
                     {isAnswered && (
-                        <div className={`mb-3 p-3 rounded-xl flex items-center gap-3 ${isCorrect ? 'bg-pop-green/20 text-pop-green' : 'bg-pop-red/20 text-pop-red'}`}>
-                            {isCorrect ? <CheckCircle size={20}/> : <HelpCircle size={20}/>}
-                            <div className="text-xs leading-tight">{currentQ.explanation}</div>
+                        <div className={`p-4 rounded-2xl border animate-slide-up backdrop-blur-md shadow-lg ${isCorrect ? 'bg-green-900/40 border-green-500/30' : 'bg-red-900/40 border-red-500/30'}`}>
+                            <div className="flex items-start gap-3">
+                                {isCorrect ? <CheckCircle className="text-pop-green shrink-0 mt-1" size={20}/> : <HelpCircle className="text-pop-red shrink-0 mt-1" size={20}/>}
+                                <div>
+                                    <div className={`font-black text-sm uppercase mb-1 ${isCorrect ? 'text-pop-green' : 'text-pop-red'}`}>
+                                        {isCorrect ? "Верно!" : "Ошибка"}
+                                    </div>
+                                    <div className="text-sm text-gray-200 leading-relaxed opacity-90">{currentQ.explanation}</div>
+                                </div>
+                            </div>
                         </div>
                     )}
-                    <Button3D fullWidth size="lg" variant={!isAnswered ? "cyan" : (isCorrect ? "green" : "red")} disabled={selectedOption === null} onClick={!isAnswered ? handleCheck : handleNext}>
-                        {!isAnswered ? "ПРОВЕРИТЬ" : (currentIndex < questions.length - 1 ? "СЛЕДУЮЩИЙ" : "ЗАВЕРШИТЬ")}
+                    
+                    <Button3D 
+                        fullWidth 
+                        size="lg" 
+                        variant={!isAnswered ? "cyan" : (isCorrect ? "green" : "gray")} 
+                        disabled={selectedOption === null && !isAnswered} 
+                        onClick={!isAnswered ? handleCheck : handleNext}
+                        className="shadow-2xl"
+                    >
+                        {!isAnswered ? "ПРОВЕРИТЬ ОТВЕТ" : (currentIndex < questions.length - 1 ? "СЛЕДУЮЩИЙ ВОПРОС" : "ЗАВЕРШИТЬ ТЕСТ")}
                     </Button3D>
                 </div>
             </div>
