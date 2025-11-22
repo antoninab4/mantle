@@ -39,25 +39,26 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
         }
     };
 
-    // If failed, show the failure screen
+    // If failed, show the failure screen (Full Height Centered)
     if (hearts === 0) {
         return (
-            <div className="text-center py-12 animate-bounce-in">
+            <div className="h-full flex flex-col items-center justify-center text-center p-6 animate-bounce-in">
                 <div className="text-8xl mb-6 animate-pulse">💔</div>
                 <h2 className="text-3xl font-black text-pop-red mb-4">Поражение!</h2>
-                <p className="text-gray-400 mb-8">К сожалению, жизни закончились. Попробуйте изучить теорию еще раз.</p>
-                <Button3D variant="red" fullWidth onClick={onFail} size="lg" className="shadow-xl shadow-red-900/40">
+                <p className="text-gray-400 mb-8 max-w-xs mx-auto">К сожалению, жизни закончились. Попробуйте изучить теорию еще раз.</p>
+                <Button3D variant="red" fullWidth onClick={onFail} size="lg" className="shadow-xl shadow-red-900/40 max-w-xs">
                     <RotateCcw size={20} /> Начать заново
                 </Button3D>
             </div>
         );
     }
 
-    // Normal Quiz Flow
+    // Normal Quiz Flow - Using Grid for layout consistency
     return (
-        <div className="animate-fade-in">
-            {/* Progress Header */}
-            <div className="mb-8 sticky top-0 bg-slate-950/90 backdrop-blur py-4 z-10 border-b border-white/5 -mx-2 px-2">
+        <div className="h-full grid grid-rows-[auto_1fr_auto] animate-fade-in">
+            
+            {/* ROW 1: Progress Header */}
+            <div className="bg-slate-950/50 border-b border-white/5 px-6 py-4 z-10">
                 <div className="flex justify-between items-end mb-2">
                     <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Вопрос {currentIndex + 1} / {questions.length}</span>
                     <div className="flex items-center gap-1 text-pop-red font-black text-lg filter drop-shadow-glow">
@@ -67,52 +68,57 @@ const QuizEngine: React.FC<QuizEngineProps> = ({ questions, onComplete, onFail }
                 <ProgressBar percentage={((currentIndex + (isAnswered ? 1 : 0)) / questions.length) * 100} color="bg-pop-green" height="h-3" />
             </div>
 
-            {/* Question */}
-            <h3 className="text-xl md:text-2xl font-black text-white mb-8 leading-snug drop-shadow-md">
-                {currentQ.question}
-            </h3>
+            {/* ROW 2: Scrollable Question Area */}
+            <div className="overflow-y-auto custom-scrollbar p-6 pb-8">
+                <div className="max-w-2xl mx-auto">
+                    {/* Question */}
+                    <h3 className="text-xl md:text-2xl font-black text-white mb-8 leading-snug drop-shadow-md">
+                        {currentQ.question}
+                    </h3>
 
-            {/* Options */}
-            <div className="space-y-4 mb-8">
-                {currentQ.options.map((option, idx) => {
-                    let styleClass = "bg-pop-card border-2 border-pop-border text-gray-300 hover:border-gray-500";
-                    let icon = null;
+                    {/* Options */}
+                    <div className="space-y-4 mb-8">
+                        {currentQ.options.map((option, idx) => {
+                            let styleClass = "bg-pop-card border-2 border-pop-border text-gray-300 hover:border-gray-500";
+                            let icon = null;
 
-                    if (selectedOption === idx && !isAnswered) {
-                        styleClass = "bg-pop-cyan/20 border-pop-cyan text-white shadow-[0_0_15px_rgba(28,176,246,0.3)] transform scale-[1.02]";
-                    }
+                            if (selectedOption === idx && !isAnswered) {
+                                styleClass = "bg-pop-cyan/20 border-pop-cyan text-white shadow-[0_0_15px_rgba(28,176,246,0.3)] transform scale-[1.02]";
+                            }
 
-                    if (isAnswered) {
-                        if (idx === currentQ.correctAnswer) {
-                            styleClass = "bg-green-500/20 border-pop-green text-white shadow-[0_0_15px_rgba(88,204,2,0.3)]";
-                            icon = <CheckCircle size={24} className="text-pop-green" />;
-                        } else if (selectedOption === idx && !isCorrect) {
-                            styleClass = "bg-red-500/20 border-pop-red text-white";
-                            icon = <XCircle size={24} className="text-pop-red" />;
-                        } else {
-                            styleClass = "opacity-40 border-transparent";
-                        }
-                    }
+                            if (isAnswered) {
+                                if (idx === currentQ.correctAnswer) {
+                                    styleClass = "bg-green-500/20 border-pop-green text-white shadow-[0_0_15px_rgba(88,204,2,0.3)]";
+                                    icon = <CheckCircle size={24} className="text-pop-green" />;
+                                } else if (selectedOption === idx && !isCorrect) {
+                                    styleClass = "bg-red-500/20 border-pop-red text-white";
+                                    icon = <XCircle size={24} className="text-pop-red" />;
+                                } else {
+                                    styleClass = "opacity-40 border-transparent";
+                                }
+                            }
 
-                    return (
-                        <button 
-                            key={idx} 
-                            disabled={isAnswered} 
-                            onClick={() => setSelectedOption(idx)} 
-                            className={`w-full p-5 rounded-2xl font-bold text-left transition-all duration-200 flex items-center justify-between relative overflow-hidden ${styleClass}`}
-                        >
-                            <span className="z-10 relative">{option}</span>
-                            {icon && <div className="animate-bounce-in">{icon}</div>}
-                        </button>
-                    );
-                })}
+                            return (
+                                <button 
+                                    key={idx} 
+                                    disabled={isAnswered} 
+                                    onClick={() => setSelectedOption(idx)} 
+                                    className={`w-full p-5 rounded-2xl font-bold text-left transition-all duration-200 flex items-center justify-between relative overflow-hidden ${styleClass}`}
+                                >
+                                    <span className="z-10 relative">{option}</span>
+                                    {icon && <div className="animate-bounce-in">{icon}</div>}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
 
-            {/* Floating Action Dock for Quiz */}
-            <div className="fixed bottom-0 left-0 right-0 z-50 p-4 pb-safe bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent pt-12">
+            {/* ROW 3: Footer Action Dock */}
+            <div className="bg-slate-950 p-4 pb-safe border-t border-white/10 z-20">
                 <div className="max-w-md mx-auto w-full space-y-4">
                     {isAnswered && (
-                        <div className={`p-4 rounded-2xl border animate-slide-up backdrop-blur-md shadow-lg ${isCorrect ? 'bg-green-900/40 border-green-500/30' : 'bg-red-900/40 border-red-500/30'}`}>
+                        <div className={`p-4 rounded-2xl border animate-slide-up backdrop-blur-md shadow-lg ${isCorrect ? 'bg-green-900/20 border-green-500/30' : 'bg-red-900/20 border-red-500/30'}`}>
                             <div className="flex items-start gap-3">
                                 {isCorrect ? <CheckCircle className="text-pop-green shrink-0 mt-1" size={20}/> : <HelpCircle className="text-pop-red shrink-0 mt-1" size={20}/>}
                                 <div>
